@@ -7,7 +7,7 @@
 *.dll
 *.so
 *.dylib
-zsh_history_tool
+zht
 
 # Test binary, built with `go test -c`
 *.test
@@ -16,7 +16,10 @@ zsh_history_tool
 *.out
 
 # Dependency directories (remove the comment below to include it)
-# vendor/
+vendor/
+
+# goreleaser dist directory
+dist/
 
 # Go workspace file
 go.work
