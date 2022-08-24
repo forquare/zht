@@ -1,0 +1,1 @@
+# ZSH History Tool
