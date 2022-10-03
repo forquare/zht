@@ -1,0 +1,19 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build_and_release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: GoReleaser Action
+        uses: goreleaser/goreleaser-action@v3.1.0
+        with:
+          distribution: goreleaser
+          version: latest
+          args: release --rm-dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

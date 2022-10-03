@@ -1,0 +1,67 @@
+project_name: zht
+before:
+  hooks:
+    - go mod tidy
+    - go mod download
+builds:
+  - ldflags: -s -w -X zht/cmd.version={{ .Version }}
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+      - freebsd
+      - netbsd
+      - openbsd
+      - dragonfly
+    goarch:
+      - amd64
+      - 386
+      - arm
+      - arm64
+universal_binaries:
+  - replace: true
+archives:
+  - replacements:
+      amd64: 64bit
+      386: 32bit
+      arm: ARM
+      arm64: ARM64
+      darwin: macOS
+      linux: Linux
+      windows: Windows
+      openbsd: OpenBSD
+      netbsd: NetBSD
+      freebsd: FreeBSD
+      dragonfly: DragonFlyBSD
+    format_overrides:
+      - goos: windows
+        format: zip
+    files:
+      - README.md
+      - LICENSE*
+    wrap_in_directory: true
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ incpatch .Version }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+gomod:
+  proxy: false
+brews:
+  - tap:
+      owner: forquare
+      name: tap
+    commit_author:
+      name: forquare
+      email: ben@lavery-griffiths.com
+    homepage: "https://github.com/forquare/zht"
+    description: " The ZSH History Tool "
+    license: "MIT"
+    skip_upload: auto
