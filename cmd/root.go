@@ -24,6 +24,7 @@ package cmd
 import (
 	"github.com/spf13/cobra"
 	"os"
+	"zht/utils"
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -53,8 +54,11 @@ func init() {
 	// will be global for your application.
 
 	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.zht.yaml)")
+	rootCmd.PersistentFlags().BoolVarP(&utils.HumanTime, "human-readable-date", "t", false, "Print the epoch time stamp in a human readable format")
+	rootCmd.PersistentFlags().StringVarP(&utils.HumanTimeFormat, "human-date-format", "F", "", "Specify the format for printing the data/time for each command, implies -t.  See https://pkg.go.dev/time#pkg-constants for available formats")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
 	//rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+
 }
