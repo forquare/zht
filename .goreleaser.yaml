@@ -57,7 +57,7 @@ gomod:
 brews:
   - tap:
       owner: forquare
-      name: tap
+      name: homebrew-tools
     commit_author:
       name: forquare
       email: ben@lavery-griffiths.com
