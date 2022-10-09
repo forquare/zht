@@ -25,3 +25,5 @@ jobs:
           args: release --rm-dist
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          EMAIL: ${{ secrets.EMAIL }}
+          AUR_PRIV_KEY: ${{ secrets.AUR_PRIV_KEY }}
