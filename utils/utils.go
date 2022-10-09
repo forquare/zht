@@ -64,14 +64,14 @@ func SortByDate(h history.History, reverse bool) *history.History {
 	return &h
 }
 
+/*
+From: https://medium.com/@kdnotes/how-to-sort-golang-maps-by-value-and-key-eedc1199d944#af09
+*/
+
 type Pair struct {
 	Key   string
 	Value int
 }
-
-/*
-From: https://medium.com/@kdnotes/how-to-sort-golang-maps-by-value-and-key-eedc1199d944#af09
-*/
 type PairList []Pair
 
 func (p PairList) Len() int           { return len(p) }
