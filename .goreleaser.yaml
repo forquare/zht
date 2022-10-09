@@ -17,13 +17,14 @@ builds:
       - dragonfly
     goarch:
       - amd64
-      - 386
+      - "386"
       - arm
       - arm64
 universal_binaries:
   - replace: true
 archives:
-  - replacements:
+  - name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
+    replacements:
       amd64: 64bit
       386: 32bit
       arm: ARM
@@ -39,9 +40,8 @@ archives:
       - goos: windows
         format: zip
     files:
-      - README.md
       - LICENSE*
-    wrap_in_directory: true
+    wrap_in_directory: false
 checksum:
   name_template: 'checksums.txt'
 snapshot:
@@ -65,3 +65,17 @@ brews:
     description: " The ZSH History Tool "
     license: "MIT"
     skip_upload: auto
+aurs:
+  - name: zht-bin
+    homepage: "https://github.com/forquare/zht"
+    description: "The ZSH History Tool"
+    maintainers:
+      - "Ben Lavery-Griffiths <ben at lavery-griffiths dot com>"
+    license: "MIT"
+    provides:
+      - zht
+    git_url: 'ssh://aur@aur.archlinux.org/zht-bin.git'
+    private_key: '{{ .Env.AUR_PRIV_KEY }}'
+    package: |-
+      install -Dm755 "./zht" "${pkgdir}/usr/bin/zht"
+
