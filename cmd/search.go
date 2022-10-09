@@ -31,7 +31,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var invert, icase, searchcount bool
+var ignoreself, noignoreself bool
 var regex, posixregex, globbing, pattern string
 
 // searchCmd represents the search command
@@ -59,16 +59,25 @@ POSIX compatible Extended Regular Expressions (ERE) can also be used.`,
 			utils.ParseAllFiles(args[1:])
 		}
 
+		/*
+			This looks stupid, and it kind of is, but bear with me!
+			We want to ignore zht instances by default so we want a nice interface for users.
+			We also want things to look nice in code, so lets sacrifice some weirdness here for simplicity later...
+		*/
+		if noignoreself {
+			// User selected they DO NOT want to ignore instances of zht
+			ignoreself = false
+		} else {
+			// User selected they DO  want to ignore instances of zht (default)
+			ignoreself = true
+		}
+
 		search()
 		/*
-			search with regex
-			search without regex (like grep -F)
+			IDEAS
 			fuzzy search
 			add date.range - fuzzy date
 			search between dates (filter)
-			invert selection (like grep -v)
-			case-insensitive search
-			count times search matches
 		*/
 	},
 }
@@ -81,42 +90,44 @@ func init() {
 	//searchCmd.Flags().StringVarP(&date, "date", "d", "", "Search between date ranges")
 	searchCmd.Flags().StringVarP(&globbing, "glob", "g", "", "Search using globbing")
 
-	searchCmd.Flags().BoolVarP(&invert, "invert-match", "v", false, "Print lines that do not match your pattern")
-	searchCmd.Flags().BoolVarP(&count, "count", "c", false, "Print the number of times your pattern matches")
-	searchCmd.Flags().BoolVarP(&icase, "ignore-case", "i", false, "Ignore case while searching")
-	//searchCmd.Flags().BoolVarP(&newlines, "collapse-newlines", "n", false, "When searching remove newlines in command history so patterns match across them")
-
+	//searchCmd.Flags().BoolVarP(&invert, "invert-match", "v", false, "Print lines that do not match your pattern")
+	//searchCmd.Flags().BoolVarP(&count, "count", "c", false, "Print the number of times your pattern matches")
+	//searchCmd.Flags().BoolVarP(&icase, "ignore-case", "i", false, "Ignore case while searching")
+	searchCmd.Flags().BoolVarP(&noignoreself, "no-ignore-self", "S", false, "When searching history, do not ignore lines that begin with `zht`")
 }
 
 func search() {
 	h = history.GetHistory()
+	var searchResults history.History
 
-	if regex != "" {
-		r := regexp.MustCompile(regex)
-		for _, entry := range *h {
-			if r.MatchString(strings.Join(entry.CommandLines, "\n")) {
-				utils.PrintHistoryEntry(&entry)
+	for _, entry := range *h {
+		if regex != "" {
+			method := regexp.MustCompile(regex)
+			if method.MatchString(strings.Join(entry.CommandLines, "\n")) {
+				searchResults = append(searchResults, entry)
 			}
-		}
-	} else if posixregex != "" {
-		r := regexp.MustCompilePOSIX(posixregex)
-		for _, entry := range *h {
-			if r.MatchString(strings.Join(entry.CommandLines, "\n")) {
-				utils.PrintHistoryEntry(&entry)
+		} else if posixregex != "" {
+			method := regexp.MustCompilePOSIX(posixregex)
+			if method.MatchString(strings.Join(entry.CommandLines, "\n")) {
+				searchResults = append(searchResults, entry)
 			}
-		}
-	} else if globbing != "" {
-		g := glob.MustCompile(globbing)
-		for _, entry := range *h {
-			if g.Match(strings.Join(entry.CommandLines, "\n")) {
-				utils.PrintHistoryEntry(&entry)
+		} else if globbing != "" {
+			method := glob.MustCompile(globbing)
+			if method.Match(strings.Join(entry.CommandLines, "\n")) {
+				searchResults = append(searchResults, entry)
 			}
-		}
-	} else {
-		for _, entry := range *h {
+		} else {
 			if strings.Contains(strings.Join(entry.CommandLines, "\n"), pattern) {
-				utils.PrintHistoryEntry(&entry)
+				searchResults = append(searchResults, entry)
 			}
+		}
+	}
+
+	ignoreselfregex := regexp.MustCompile("^(./)*zht ")
+	for _, entry := range searchResults {
+		if ignoreself && ignoreselfregex.MatchString(strings.Join(entry.CommandLines, "\n")) {
+		} else {
+			utils.PrintHistoryEntry(&entry)
 		}
 	}
 }
