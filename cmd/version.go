@@ -43,5 +43,5 @@ func init() {
 }
 
 func printVersion() {
-	fmt.Printf("zht version: %s", version)
+	fmt.Printf("zht version: %s\n", version)
 }
