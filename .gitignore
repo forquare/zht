@@ -9,6 +9,9 @@
 *.dylib
 zht
 
+# Man page
+zht.1
+
 # Test binary, built with `go test -c`
 *.test
 
