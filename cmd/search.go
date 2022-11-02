@@ -73,12 +73,6 @@ POSIX compatible Extended Regular Expressions (ERE) can also be used.`,
 		}
 
 		search()
-		/*
-			IDEAS
-			fuzzy search
-			add date.range - fuzzy date
-			search between dates (filter)
-		*/
 	},
 }
 
