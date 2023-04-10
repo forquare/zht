@@ -1,0 +1,71 @@
+: 1647717072:0;ls -la
+: 1647717073:0;cd ~/Documents
+: 1647717074:0;touch myfile.txt
+: 1647717075:0;echo "First line\nSecond line" > myfile.txt
+: 1647717076:0;cat myfile.txt | sed 's/First/Second/g' > newfile.txt
+: 1647717077:0;awk '{print $1}' myfile.txt | sort | uniq
+: 1647717078:0;find . -type f -name '*.txt' | xargs grep 'searchterm' | awk '{print $1}' | sort | uniq
+: 1647717079:0;python myscript.py arg1 arg2 arg3
+: 1647717080:0;echo "Hello\nWorld" | tr '\n' ','
+: 1647717081:0;history -i 10
+: 1647717082:0;top
+: 1647717083:0;tail -f /var/log/system.log
+: 1647717084:0;curl https://api.example.com -H "Authorization: Bearer token" -X POST -d '{"key": "value"}'
+: 1647717086:0;docker-compose up -d
+: 1647717087:0;chmod +x myscript.sh
+: 1647717088:0;./myscript.sh arg1 arg2
+: 1647717089:0;rsync -avz local_dir/ user@remote_host:/remote_dir/
+: 1647717090:0;scp myfile.txt user@remote_host:/remote_dir/
+: 1647717091:0;tar -czvf archive.tar.gz folder/
+: 1647717092:0;unzip archive.zip
+: 1647717093:0;echo "My password is: mypassword" | grep -o 'mypassword'
+: 1647717094:0;tail -n 100 /var/log/system.log | grep 'searchterm' | awk '{print $1}' | sort | uniq
+: 1647717095:0;echo "This is a really\ncomplicated one-liner with pipes and strings containing new lines" \
+| sed 's/complicated/complex/g' \
+| awk '{print $1}' \
+| tr '[:lower:]' '[:upper:]' \
+| grep 'ONE-LINER'
+: 1647717096:0;netstat -an | grep ':80' | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -nr
+: 1647717097:0;ssh-keygen -t rsa -b 4096 -C "myemail@example.com"
+: 1647717098:0;openssl genrsa -out private.key 2048 && openssl rsa -in private.key -pubout -out public.key
+: 1647717099:0;git add -A && git commit -m "my commit message" && git push
+: 1647717100:0;ps aux | awk '{print $2,$4}' | sort -k2rn | head -n 
+: 1647717101:0;echo "This is a multi-line command\nthat spans multiple lines\nand outputs to a file" \
+> output.txt
+: 1647717102:0;grep 'searchterm' *.txt | awk '{print $1,$2}' | sort | uniq > output.txt
+: 1647717104:0;echo "This is a really\ncomplicated one-liner with pipes and strings containing new lines" \
+| sed 's/complicated/complex/g' \
+| awk '{print $1}' \
+| tr '[:lower:]' '[:upper:]' \
+| grep 'ONE-LINER' > output.txt
+: 1647717105:0;awk '{print $2,$3}' myfile.txt | sort | uniq | awk '{print $2,$1}' > output.txt
+: 1647717106:0;ls -la | grep 'searchterm' | awk '{print $1}' | sort | uniq > output.txt
+: 1647717107:0;echo "This is a really\ncomplicated one-liner with pipes and strings containing new lines" \
+| sed 's/complicated/complex/g' \
+| awk '{print $1}' \
+| tr '[:lower:]' '[:upper:]' \
+| grep 'ONE-LINER' | sed 's/ONE-LINER/COMPLICATED/g' > output.txt
+: 1647717108:0;find . -type f -name '*.txt' -mtime -7 | xargs grep 'searchterm' | awk '{print $1}' | sort | uniq > output.txt
+: 1647717109:0;echo "This is a really\ncomplicated one-liner with pipes and strings containing new lines" \
+| sed 's/complicated/complex/g' \
+| awk '{print $1}' \
+| tr '[:lower:]' '[:upper:]' \
+| grep 'ONE-LINER' | sed 's/ONE-LINER/COMPLICATED/g' | awk '{print $1}' > output.txt
+: 1647717110:0;ls -la | grep 'searchterm' | awk '{print $1}' | sort | uniq | awk '{print $1}' > output.txt
+: 1647717111:0;echo "This is a really\ncomplicated one-liner with pipes and strings containing new lines" \
+| sed 's/complicated/complex/g' \
+| awk '{print $1}' \
+| tr '[:lower:]' '[:upper:]' \
+| grep 'ONE-LINER' | sed 's/ONE-LINER/COMPLICATED/g' | awk '{print $1}' | sort | uniq > output.txt
+: 1647717112:0;find . -type d -name 'foldername' -exec rm -rf {} +
+: 1647717113:0;echo "This is a really\ncomplicated one-liner with pipes and strings containing new lines" \
+| sed 's/complicated/complex/g' \
+| awk '{print $1}' \
+| tr '[:lower:]' '[:upper:]'
+: 1681157214:0;| grep 'ONE-LINER'
+: 1681157117:0;export HISTFILE=$(pwd)/history
+: 1681157188:0;export HISTFILE=history zsh
+: 1681157189:0;pwd
+: 1681157194:0;ls
+: 1681157196:0;cat history
+: 1681157212:0;ps aux |grep zsh
